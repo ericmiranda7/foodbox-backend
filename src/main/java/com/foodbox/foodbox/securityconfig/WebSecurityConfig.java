@@ -16,11 +16,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/api**").permitAll()
+                .antMatchers("/api/foods").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
                 .httpBasic();
     }

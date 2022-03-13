@@ -2,8 +2,11 @@ package com.foodbox.foodbox.DAO;
 
 import com.foodbox.foodbox.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class UserMySQLDAO extends AbstractDAO<User> {
@@ -18,7 +21,12 @@ public class UserMySQLDAO extends AbstractDAO<User> {
         return null;
     }
 
-    public User getUserByUsername(String username) {
+    @Override
+    public List<User> getAll() {
+        return null;
+    }
+
+    public User getUserByUsername(String username) throws DataAccessException {
         return this.jdbcTemplate.queryForObject("SELECT * FROM users WHERE username = ?", (rs, id) -> {
             User user = new User();
             user.setId(rs.getInt(1));

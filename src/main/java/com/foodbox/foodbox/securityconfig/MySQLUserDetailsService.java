@@ -16,7 +16,6 @@ public class MySQLUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByUsername(username);
-        if (user == null) throw new UsernameNotFoundException("No such user with username: " + username);
 
         return new MyUserPrincipal(user);
     }
